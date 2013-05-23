@@ -1,0 +1,14 @@
+logs
+project/project
+project/target
+target
+tmp
+.history
+dist
+/.idea/workspace.xml
+/.idea/tasks.xml
+/out
+/.classpath
+/.project
+/RUNNING_PID
+/.settings
