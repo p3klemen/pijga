@@ -17,7 +17,7 @@ public class Akcije extends Model{
     @Required
     public LocalDate datum_konca;
     @Required
-    public Double znesek;
+    public Double popust;
 
     @ManyToOne
     @JoinColumn(name="artikli_id")

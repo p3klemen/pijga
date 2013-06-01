@@ -13,6 +13,9 @@ public class Zaloge extends Model{
     @ManyToOne
     @JoinColumn(name="bari_id")
     public Bari bar;
+    @ManyToOne
+    @JoinColumn(name="artikli_id")
+    public Artikli artikel;
 
     public static Finder<Integer, Zaloge> find = new
             Finder<Integer, Zaloge>(Integer.class, Zaloge.class);

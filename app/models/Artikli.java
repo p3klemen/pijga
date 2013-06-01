@@ -12,15 +12,13 @@ public class Artikli extends Model{
     @Required
     public String naziv;
     @Required
+    public String proizvajalec;
+    @Required
     public Double cena;
     @Required
     @ManyToOne
     @JoinColumn(name="vrste_id")
     public Vrste vrsta;
-
-    @ManyToOne
-    @JoinColumn(name="zaloge_id")
-    public Zaloge zaloga;
 
     @OneToMany(mappedBy="artikel")
     public List<Cene> cene;
