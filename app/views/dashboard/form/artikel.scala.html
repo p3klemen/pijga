@@ -1,0 +1,28 @@
+@(form: Form[Artikli])
+@* Rezervacije *@
+
+@dashboard.dashboard {
+<div class="well">
+    @helper.form(routes.Dashboard.addArtikel) {
+    <fieldset>
+        <legend>Akcije</legend>
+        <label>Naziv</label>
+        <input type="text" name="naziv" placeholder="naziv" value="@form("naziv").value"/>
+        <label>Proizvajalec</label>
+        <input type="text" name="proizvajalec" placeholder="proizvajalec" value="@form("proizvajalec").value"/>
+        <label>Cena</label>
+        <input type="text" name="cena" placeholder="cena" value="@form("cena").value"/>
+        <label>Vrsta</label>
+        <input type="text" name="vrsta.vrste_id" placeholder="vrsta.vrste_id" value="@form("vrsta.vrste_id").value"/>
+        @*
+            Meh pa tile form validations...
+        @if(form.hasErrors) { 
+        <span class="help-inline error">@Messages(form.error("naziv").message, form.error("naziv").arguments)</span>
+        }
+        *@
+        <br/>
+        <button class="btn" type="submit">Dodaj</button>
+    </fieldset>
+    }
+</div>
+}

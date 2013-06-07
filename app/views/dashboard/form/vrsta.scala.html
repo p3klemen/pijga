@@ -1,0 +1,49 @@
+@(forma: Form[Vrste], davki: List[Davki])
+
+@import helper._
+@dashboard.dashboard {
+
+<div class="well">
+    @helper.form(routes.Dashboard.addVrsta) {
+    <fieldset>
+        <legend>vrsta</legend>
+        <label>vrsta</label>
+        <input type="text" name="vrsta" placeholder="vrsta" value="@forma("vrsta").value"/>
+        @*
+            Meh pa tile form validations...
+        *@
+        @if(forma.hasErrors) { 
+        @if(forma.error("vrsta") != null){
+        <span class="help-inline error">@Messages(forma.error("vrsta").message, forma.error("vrsta").arguments)</span>
+        }}
+        <br/>
+        <label>davek</label>
+        
+                @*                  Primer select helperja
+                @select(
+                forma("davek.davki_id"),
+                options(Vrste.getOptions()),
+                '_default -> "--- Choose a country ---",
+                '_label -> "davek",
+                '_error -> forma("davek").error.map(_.withMessage("Please select your country"))
+                )
+                *@
+
+        <select name="davek.davki_id">
+            @for(davek <- davki){
+            <option value="@davek.davki_id">@davek.davek</option>
+            }
+        </select>
+        @*
+            Meh pa tile form validations...
+        *@
+        @if(forma.hasErrors) { 
+        @if(forma.error("davek") != null){
+        <span class="help-inline error">@Messages(forma.error("davek").message, forma.error("davek").arguments)</span>
+        }}
+        <br/>
+        <button class="btn" type="submit">Dodaj</button>
+    </fieldset>
+    }
+</div>
+}

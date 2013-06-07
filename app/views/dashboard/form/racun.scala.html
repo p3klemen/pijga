@@ -1,0 +1,71 @@
+@(eform: Form[Racuni])
+@* Racuni *@
+@import helper._
+
+
+@dashboard.dashboard {
+<div class="well">
+    @helper.form(routes.Dashboard.addRacun) {
+    <fieldset>
+        <legend>Racun</legend>
+        <label>Bar</label>
+        <input type="text" name="bar.bari_id" placeholder="bar.bari_id" value="@eform("bar.bari_id").value"/>
+        <label>Oseba</label>
+        <input type="text" name="oseba.osebe_id" placeholder="oseba.osebe_id" value="@eform("oseba.osebe_id").value"/>
+        <label>Datum</label>
+        <input type="text" name="datum" placeholder="datum" value="@eform("datum").value"/>
+        <label>Ura</label>
+        <input type="text" name="ura" placeholder="ura" value="@eform("ura").value"/>
+        <label>cena</label>
+        <input type="text" name="znesek" placeholder="znesek" value="@eform("znesek").value"/>
+
+@*
+        @repeat(eform("cene"), min=1) {znesekField => 
+        @inputText(znesekField("cena"), '_class -> "cene")
+        }
+        <div class="clearfix">
+        <div class="input">
+            <a class="addPhone btn success">Add a phone number</a>
+        </div>
+        </div>
+        *@
+
+        <div class="nasecene">
+        @repeat(eform("cene"), min=1) {znesekField => 
+        @inputText(znesekField("cena"), '_class -> "cene")
+        }
+        <div class="clearfix">
+        <div class="input">
+            <a class="addCena btn success">Dodaj ceno</a>
+        </div>
+        </div>
+        </div>
+        @*
+            Meh pa tile form validations...
+        *@
+
+
+<br/>
+        <button class="btn" type="submit">Dodaj</button>
+    </fieldset>
+    }
+</div>
+<script type="text/javascript" charset="utf-8">
+    $('.nasecene').on('click', '.addCena',  function(e) {
+            var cene = $(this).parents('.nasecene')
+            var template = $('.cene', cene)
+            template.before('<div class="clearfix phone">' + template.html() + '</div>')
+            renumber()
+            alert($('.nasecene').filter('cene').length)
+            })
+
+var renumber = function(phones) {
+    $('.cene').each(function(i) {
+            $('input', this).each(function() {
+                $(this).attr('name', $(this).attr('name').replace(/cene\[.+\].cena/g, 'cene[' + i + '].cena'))
+                $(this).attr('value', i);
+                })
+            })
+}
+</script>
+}

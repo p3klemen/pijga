@@ -1,0 +1,12 @@
+@(artikli: List[Artikli])
+
+@main("Pijga.si - Artikli") {
+<div class="hero-unit">
+    <ul>
+    @for(artikel <- artikli){
+    <li> @artikel </li>
+    }
+</ul>
+
+</div>
+}

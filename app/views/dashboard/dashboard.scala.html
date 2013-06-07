@@ -1,0 +1,14 @@
+@(content: Html)
+
+@main("Pijga.si - dashboard") {
+    
+<div class="container-fluid">
+    <div class="span2 offset2">
+        @Html(Dashboard.dashmenu())
+    </div>
+    <div class="well span6 ">
+        @content
+    </div>
+</div>
+
+}

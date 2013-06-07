@@ -1,0 +1,15 @@
+@(form: Form[Application.Login])
+
+@form = @{Http.Context.current().args.get("loginform").asInstanceOf[Form[Application.Login]]}
+
+@helper.form(routes.Application.authenticate, 'class -> "navbar-form pull-right") {
+            
+            @if(form != null && form.hasGlobalErrors) { 
+                <p class="badge badge-important">@form.globalError.message</p>
+            }
+            
+            <input type="email" name="email" placeholder="E-posta" value="@if(form != null){ @form("email").value }"/>
+                <input type="password" name="password" placeholder="Geslo"/>
+                <button class="btn" type="submit">Prijava</button>
+            
+        }

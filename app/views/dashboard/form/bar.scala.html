@@ -1,0 +1,34 @@
+@(form: Form[Bari])
+
+@dashboard.dashboard {
+
+<div class="well">
+    @helper.form(routes.Dashboard.addBar) {
+    <fieldset>
+        <legend>Bar</legend>
+        <label>Naziv</label>
+        <input type="text" name="naziv" placeholder="Naziv" value="@form("naziv").value"/>
+        <label>Davcna</label>
+        <input type="text" name="davcna" placeholder="davcna" value="@form("davcna").value"/>
+        <label>Naslov</label>
+        <input type="text" name="naslov" placeholder="naslov" value="@form("naslov").value"/>
+        <label>Kraj</label>
+        <input type="text" name="kraj" placeholder="kraj" value="@form("kraj").value"/>
+        <label>Posta</label>
+        <input type="text" name="posta" placeholder="posta" value="@form("posta").value"/>
+        <label>Geolokacija</label>
+        <input type="text" name="geo" placeholder="geo" value="@form("geo").value"/>
+        <label>Stevilo mest</label>
+        <input type="text" name="stevilo_mest" placeholder="stevilo" value="@form("stevilo_mest").value"/>
+        @*
+            Meh pa tile form validations...
+        *@
+        @if(form.hasErrors) { 
+        <span class="help-inline error">@Messages(form.error("naziv").message, form.error("naziv").arguments)</span>
+        }
+        <br/>
+        <button class="btn" type="submit">Dodaj</button>
+    </fieldset>
+    }
+</div>
+}

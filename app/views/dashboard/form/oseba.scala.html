@@ -1,0 +1,36 @@
+@(form: Form[Osebe])
+@* OSEBE *@
+
+@dashboard.dashboard {
+<div class="well">
+    @helper.form(routes.Dashboard.addOseba) {
+    <fieldset>
+        <legend>Bar</legend>
+        <label>Naziv</label>
+        <input type="text" name="ime" placeholder="ime" value="@form("ime").value"/>
+        <label>Davcna</label>
+        <input type="text" name="priimek" placeholder="priimek" value="@form("priimek").value"/>
+        <label>Naslov</label>
+        <input type="text" name="naslov" placeholder="naslov" value="@form("naslov").value"/>
+        <label>Kraj</label>
+        <input type="text" name="kraj" placeholder="kraj" value="@form("kraj").value"/>
+        <label>Posta</label>
+        <input type="text" name="posta" placeholder="posta" value="@form("posta").value"/>
+        <label>Email</label>
+        <input type="text" name="email" placeholder="email" value="@form("email").value"/>
+        <label>Geslo</label>
+        <input type="text" name="geslo" placeholder="geslo" value="@form("geslo").value"/>
+        <label>Telefon</label>
+        <input type="text" name="telefon" placeholder="telefon" value="@form("telefon").value"/>
+        @*
+            Meh pa tile form validations...
+        *@
+        @if(form.hasErrors) { 
+        <span class="help-inline error">@Messages(form.error("email").message, form.error("email").arguments)</span>
+        }
+        <br/>
+        <button class="btn" type="submit">Dodaj</button>
+    </fieldset>
+    }
+</div>
+}

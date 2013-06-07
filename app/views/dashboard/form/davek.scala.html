@@ -1,0 +1,22 @@
+@(form: Form[Davki])
+
+@dashboard.dashboard {
+
+<div class="well">
+    @helper.form(routes.Dashboard.addDavek) {
+    <fieldset>
+        <legend>Davek</legend>
+        <label>davek</label>
+        <input type="text" name="davek" placeholder="davek" value="@form("davek").value"/>
+        @*
+            Meh pa tile form validations...
+        *@
+        @if(form.hasErrors) { 
+        <span class="help-inline error">@Messages(form.error("davek").message, form.error("davek").arguments)</span>
+        }
+        <br/>
+        <button class="btn" type="submit">Dodaj</button>
+    </fieldset>
+    }
+</div>
+}

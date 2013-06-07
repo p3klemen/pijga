@@ -1,0 +1,12 @@
+@(vrste: List[Vrste])
+
+@dashboard.dashboard {
+<div class="well">
+    <ul>
+    @for(vrsta <- vrste){
+    <li> @vrsta </li>
+    }
+</ul>
+
+</div>
+}

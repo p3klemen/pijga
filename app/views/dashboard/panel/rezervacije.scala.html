@@ -1,0 +1,12 @@
+@(rezerv: List[Rezervacije])
+
+@dashboard.dashboard {
+<div class="well">
+    <ul>
+    @for(rez <- rezerv){
+    <li> @rez </li>
+    }
+</ul>
+
+</div>
+}

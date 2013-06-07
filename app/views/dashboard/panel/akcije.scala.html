@@ -1,0 +1,12 @@
+@(akcije: List[Akcije])
+
+@dashboard.dashboard {
+<div class="well">
+    <ul>
+    @for(akcija <- akcije){
+    <li> @akcija </li>
+    }
+</ul>
+
+</div>
+}

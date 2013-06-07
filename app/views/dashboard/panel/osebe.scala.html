@@ -1,0 +1,12 @@
+@(osebe: List[Osebe])
+
+@dashboard.dashboard {
+<div class="well">
+    <ul>
+    @for(oseba <- osebe){
+    <li> @oseba </li>
+    }
+</ul>
+
+</div>
+}

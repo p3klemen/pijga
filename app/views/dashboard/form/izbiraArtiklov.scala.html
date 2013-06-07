@@ -1,0 +1,57 @@
+@(art: Map[String,List[Artikli]])
+
+@import helper._
+
+
+@dashboard.dashboard {
+<div class="well">
+    @helper.form(routes.Dashboard.addRacun2) {
+    <fieldset>
+        <legend>Artikli</legend>
+
+        @for((key, value) <- art) {
+
+            @if(!value.isEmpty){
+            <legend>@key</legend>
+            @for(t <- value) {
+            <label class="checkbox btn btn-large @if(t.naziv.length > 7){span2}else{span1}">
+                <input type='checkbox' name='artikli[]' value=@t.artikli_id>@t.naziv 
+                </label>
+            }
+            }
+        }
+
+    @*
+        @for(t <- art) {
+            <label class="checkbox btn btn-large">
+            <input type='checkbox' name='artikli[]' value=@t.naziv>@t.naziv 
+            </label>
+        }
+        *@
+
+
+<br/>
+        <button class="btn" type="submit">Dodaj</button>
+    </fieldset>
+    }
+</div>
+<script type="text/javascript" charset="utf-8">
+
+    $('.nasecene').on('click', '.addCena',  function(e) {
+            var cene = $(this).parents('.nasecene')
+            var template = $('.cene', cene)
+            template.before('<div class="clearfix phone">' + template.html() + '</div>')
+            renumber()
+            alert($('.nasecene').filter('cene').length)
+            })
+
+var renumber = function(phones) {
+    $('.cene').each(function(i) {
+            $('input', this).each(function() {
+                $(this).attr('name', $(this).attr('name').replace(/cene\[.+\].cena/g, 'cene[' + i + '].cena'))
+                $(this).attr('value', i);
+                })
+            })
+}
+</script>
+}

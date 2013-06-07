@@ -3,7 +3,49 @@
 # ~~~~
 
 # Home page
-GET     /                           controllers.Application.index()
+GET     /                               controllers.Dashboard.index()
+GET     /index                           controllers.Application.index()
+GET     /onas                           controllers.Application.about()
+GET     /artikli2                           controllers.Application.artikli()
+# Authentication
+#GET     /login                              controllers.Application.login()
+POST    /login                              controllers.Application.authenticate()
+GET     /logout                             controllers.Application.logout()
 
+
+POST    /davek                              controllers.Dashboard.addDavek()
+GET     /davek                              controllers.Dashboard.formDavek()
+GET     /davki                              controllers.Dashboard.listDavek()
+
+POST    /vrsta                              controllers.Dashboard.addVrsta()
+GET     /vrsta                              controllers.Dashboard.formVrsta()
+GET     /vrste                              controllers.Dashboard.listVrsta()
+
+POST    /bar                              controllers.Dashboard.addBar()
+GET     /bar                              controllers.Dashboard.formBar()
+GET     /bari                              controllers.Dashboard.listBari()
+
+POST    /oseba                              controllers.Dashboard.addOseba()
+GET     /oseba                              controllers.Dashboard.formOseba()
+GET     /osebe                              controllers.Dashboard.listOsebe()
+
+POST    /rezervacija                              controllers.Dashboard.addRezervacija()
+GET     /rezervacija                              controllers.Dashboard.formRezervacija()
+GET     /rezervacije                              controllers.Dashboard.listRezervacije()
+
+POST    /akcija                              controllers.Dashboard.addAkcija()
+GET     /akcija                              controllers.Dashboard.formAkcija()
+GET     /akcije                              controllers.Dashboard.listAkcije()
+
+POST    /artikel                              controllers.Dashboard.addArtikel()
+GET     /artikel                              controllers.Dashboard.formArtikel()
+GET     /artikli                              controllers.Dashboard.listArtikli()
+
+POST    /narocilo                              controllers.Dashboard.addRacun()
+GET     /narocilo                              controllers.Dashboard.formRacun()
+#GET     /artikli                              controllers.Dashboard.listArtikli()
+
+GET     /izbira                              controllers.Dashboard.formIzbiraArtikli()
+POST    /racun1                             controllers.Dashboard.addRacun2()
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

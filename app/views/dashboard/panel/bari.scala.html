@@ -1,0 +1,12 @@
+@(bari: List[Bari])
+
+@dashboard.dashboard {
+<div class="well">
+    <ul>
+    @for(bar <- bari){
+    <li> @bar </li>
+    }
+</ul>
+
+</div>
+}

@@ -1,0 +1,12 @@
+@(davki: List[Davki])
+
+@dashboard.dashboard {
+<div class="well">
+    <ul>
+    @for(davek <- davki){
+    <li> @davek </li>
+    }
+</ul>
+
+</div>
+}
