@@ -16,6 +16,14 @@ public class Rezervacije extends Model{
     @Required
     public Integer stevilo;
 
+    @Required
+    @ManyToOne
+    @JoinColumn(name="bari_id")
+    public Bari bar;
+    @Required
+    @ManyToOne
+    @JoinColumn(name="osebe_id")
+    public Osebe oseba;
     //@Required
     //@ManyToOne
     //@JoinColumn(name="zaloge_id")
@@ -23,4 +31,8 @@ public class Rezervacije extends Model{
 
     public static Finder<Integer, Rezervacije> find = new
             Finder<Integer, Rezervacije>(Integer.class, Rezervacije.class);
+
+    public String toString(){
+        return "Rezervacija: " + datum + " " + ura + " " + stevilo;
+    }
 }

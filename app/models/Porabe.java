@@ -3,12 +3,16 @@ import play.db.ebean.*;
 import javax.persistence.*;
 import play.data.validation.Constraints.*;
 import com.avaje.ebean.*;
+import org.joda.time.*;
+
 @Entity
-public class Zaloge extends Model{
+public class Porabe extends Model{
     @Id
-    public Integer zaloge_id;
+    public Integer porabe_id;
     @Required
     public Integer stevilo;
+    @Required
+    public LocalDate datum;
 
 
     @Required
@@ -20,6 +24,6 @@ public class Zaloge extends Model{
     @JoinColumn(name="artikli_id")
     public Artikli artikel;
 
-    public static Finder<Integer, Zaloge> find = new
-            Finder<Integer, Zaloge>(Integer.class, Zaloge.class);
+    public static Finder<Integer, Porabe> find = new
+            Finder<Integer, Porabe>(Integer.class, Porabe.class);
 }

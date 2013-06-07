@@ -1,5 +1,6 @@
 package models;
 import play.db.ebean.*;
+import play.data.format.*;
 import javax.persistence.*;
 import play.data.validation.Constraints.*;
 import com.avaje.ebean.*;
@@ -28,4 +29,8 @@ public class Akcije extends Model{
 
     public static Finder<Integer, Akcije> find = new
             Finder<Integer, Akcije>(Integer.class, Akcije.class);
+
+    public String toString(){
+        return "Akcija: " + naziv + " " + datum_zacetka + " " + datum_konca + " " + popust;
+    }
 }

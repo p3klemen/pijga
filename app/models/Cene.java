@@ -4,7 +4,6 @@ import javax.persistence.*;
 import play.data.validation.Constraints.*;
 import com.avaje.ebean.*;
 import java.util.*;
-import org.joda.time.*;
 
 @Entity
 public class Cene extends Model{

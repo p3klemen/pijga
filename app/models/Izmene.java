@@ -17,8 +17,11 @@ public class Izmene extends Model{
     public LocalTime ura_odjave;
 
     @ManyToOne
-    @JoinColumn(name="oseba_is")
+    @JoinColumn(name="oseba_id")
     public Osebe oseba;
+    @ManyToOne
+    @JoinColumn(name="bari_id")
+    public Bari bar;
 
     public static Finder<Integer, Izmene> find = new
             Finder<Integer, Izmene>(Integer.class, Izmene.class);
