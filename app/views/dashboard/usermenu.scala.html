@@ -1,6 +1,7 @@
-@(user: String)
+@(user: String, status: String)
 
 <ul class="nav pull-right">
     <li><a href="#">@user</a></li>
+    <li><a href="#">@status</a></li>
     <li><a href="@routes.Application.logout()">Odjava</a></li>
 </ul>

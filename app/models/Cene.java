@@ -24,4 +24,9 @@ public class Cene extends Model{
 
     public static Finder<Integer, Cene> find = new
             Finder<Integer, Cene>(Integer.class, Cene.class);
+
+
+    public String toString(){
+        return "Cena: " + cena + " " + kolicina + " " + artikel.naziv;
+    }
 }

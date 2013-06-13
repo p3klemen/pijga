@@ -28,7 +28,13 @@ import views.html.dashboard.panel.*;
  */
 //@Security.Authenticated(Secured.class)
 public class Dashboard extends Controller {
-  
+    /**
+     * Drzi izbrane artikle
+     */
+    public static class Art{
+        public List<String> artikli;
+    }
+
     /**
      * Display the dashboard.
      */
@@ -267,20 +273,100 @@ public class Dashboard extends Controller {
     public static Result formIzbiraArtikli(){
         return ok(izbiraArtiklov.render(Artikli.getMapByVrste()));
     }
-        public static class Art{
-            public List<String> artikli;
-            public Art(){}
-        }
-    public static Result addRacun2(){
+    public static Result addRacun3(){
+        DynamicForm dform = form().bindFromRequest();
+        //pridobimo izbrane vrednosti [artikli_id -> kolicina]
+        Map<String,String> mapa = dform.data();
+        
+        //ustvarimo racun
+        Racuni racun = new Racuni();
+        Osebe o = new Osebe();
+        o.osebe_id = 1;
+        racun.oseba = o;
+        Bari b = new Bari();
+        b.bari_id = 1;
+        racun.bar = b;
+        racun.znesek = 0.0;
+        racun.datum = new LocalDate();
+        racun.ura = new LocalTime();
+        racun.save();
 
+        List<Cene> cene = new ArrayList();
+        List<Integer> ids = new ArrayList();
+        //shranimo si idje artiklov
+        for (Map.Entry<String, String> entry : mapa.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+            if(!value.equals("0")){
+            Logger.warn(key + " - " + value);
+                ids.add(Integer.parseInt(key));
+            }
+        }
+        //pridobimo listo artiklov
+        List<Artikli> art = Artikli.find.where().idIn(ids).findList();
+
+        //za vsak artikel izracunamo ceno
+        Double znesek = 0.0;
+        for(Artikli a : art){
+            Cene c = new Cene();
+            c.artikel = a;
+            c.kolicina = Integer.parseInt(mapa.get(Integer.toString(a.artikli_id)));
+            c.cena = c.kolicina * a.cena;
+            znesek += c.cena;
+            c.racun = racun;
+            cene.add(c);
+            Logger.info("Dodal ceno: " + c);
+        }
+        //posodobimo in shranimo racun ter cene
+        racun.znesek = znesek;
+        racun.update();
+        Ebean.save(cene);
+
+        return ok(izdanRacun.render(racun, cene));
+    }
+    public static Result addRacun2(){
         //Form<Art> eform = form(Art.class).bindFromRequest();
         //Art a = eform.bindFromRequest().get();
+        /**
+         *Binding to class
+         */
+        //Art a = form(Art.class).bindFromRequest().get();
+        //Logger.info("checkboxs: " + a.artikli.size());
+        //for(String s : a.artikli)
+        //Logger.info("art id: " + s);
 
+        /**
+         * Binding to Map
+         */
+        Map<String, String[]> map = request().body().asFormUrlEncoded();
+        String[] allCheckedData = map.get("artikli[]"); // get all checked question
 
-        Art a = form(Art.class).bindFromRequest().get();
-            Logger.info("checkboxs: " + a.artikli.size());
-            for(String s : a.artikli)
-                Logger.info("art id: " + s);
+        List<Integer> ids = new ArrayList();
+        for (String t : allCheckedData) {
+            Logger.info("Checked data is " + t);
+            ids.add(Integer.parseInt(t));
+        } 
+
+        List<Artikli> art = Artikli.find.where().idIn(ids).findList();
+
+        for(Artikli a : art)
+            Logger.warn(a.naziv);
+
+        //for (Map.Entry<String, String[]> entry : map.entrySet()) {
+            //String key = entry.getKey();
+            //String[] value = entry.getValue();
+            //if(!value[0].equals("0"))
+            //Logger.warn(key + " - " + value[0]);
+        //}
+
+        //DynamicForm dform = form().bindFromRequest();
+        //Map<String,String> mapa = dform.data();
+        //for(String key : mapa.keySet()){
+            //Logger.warn("key: " + key);
+        //}
+        //for(String key : mapa.values())
+            //Logger.warn("values: " + key);
+
         //List<String> l = form.bindFromRequest();
         //DynamicForm dform = form().bindFromRequest();
         //if(dform.get("artikli") != null){
@@ -295,8 +381,9 @@ public class Dashboard extends Controller {
 //for (String key : keys) {
      // check if key begin with "param["
             //Logger.info("checkboxs: " + key);
+            //Logger.info("kv: " + key.value());
 //}
-            return ok(Integer.toString(a.artikli.size()));
+            return ok(izbiraKolicin.render(art));
     }
     //// -- Projects
 

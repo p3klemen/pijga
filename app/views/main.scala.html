@@ -1,38 +1,54 @@
 @(title: String)(content: Html)
 
 <!DOCTYPE html>
-
 <html>
     <head>
         <title>@title</title>
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
         <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap.min.css")" />
         <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap-responsive.min.css")" />
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap-superhero.css")" />
         <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
         <script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.at("javascripts/bootstrap.min.js")" type="text/javascript"></script>
     </head>
     <body>
+        <div class="container">
+            <div class="row">
+                <div class="span4">
+                    <img class="img-circle" src="https://dl.dropboxusercontent.com/u/20180781/Praktikum/beer.jpg">
+                </div>
 
-        <div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="navbar-inner">
-                <div class="container-fluid">
-                    <div class="row-fluid">
-                    <a class="brand" href="@routes.Application.index()">Pijga.si</a>
-                    <div class="nav-collapse collapse">
-                        <ul class="nav">
-                            <li><a href="@routes.Application.artikli()">Artikli</a></li>
-                            <li><a href="@routes.Application.about()">O nas</a></li>
-                            <li><a href="#">krneki</a></li>
-                        </ul>
-                        @Html(Application.login())
+                <div class="span5">
+                    <div class="hero-unit">
+                        <h1 style="font-size:70px; text-align:center">Pij-ga.si</h1>
+                        <h1></h1>
                     </div>
+                </div>
+
+                <div class="span3">
+                    @Html(Application.login())
+                </div>
+            </div>
+
+            <div class="pull-right row">
+                <div class="pull-left span3">
+                    @if(session.get("status") != null){
+                        @Html(Dashboard.dashmenu())
+                    }
+                    <a class="btn btn-primary btn-large btn-block" href="@routes.Application.lokali()">Lokali</a>
+                    <a class="btn btn-primary btn-large btn-block">Ponudba</a>
+                    <a class="btn btn-primary btn-large btn-block">Rezervacije</a>
+                    <a class="btn btn-primary btn-large btn-block">Kje se nahajamo</a>
+                    <a class="btn btn-primary btn-large btn-block">Akcije</a>
+                </div>
+
+                <div class="span9">
+                    <div class="well">
+                        @content
                     </div>
                 </div>
             </div>
         </div>
-
-    <div class="container-fluid">
-        @content
-    </div>
     </body>
 </html>

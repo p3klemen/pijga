@@ -1,0 +1,12 @@
+@(bari: List[Bari])
+
+@main("Pijga.si - Artikli") {
+<div class="hero-unit">
+    <ul>
+    @for(bar <- bari){
+    <li> @bar </li>
+    }
+</ul>
+
+</div>
+}

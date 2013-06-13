@@ -1,0 +1,62 @@
+@(racun: Racuni, cene: List[Cene])
+
+@import helper._
+
+
+@dashboard.dashboard {
+
+
+
+
+<script type="text/javascript" charset="utf-8">
+    window.globalVar = 0;
+    window.globalCal;
+
+
+    $(".vrsteselect button").click(function(){
+            var cls = $(this).attr("class").split(" ");
+        //alert($(this).attr("class"));
+            $(".vrsteselect").addClass("hidden");
+            var lol = $("." + cls[2] + ":not(.hidden)");
+            $("." + cls[2]).removeClass("hidden");
+            //alert(cls[2]);
+    });
+
+    $('input:checkbox').change(function() {
+            //naziv artikla
+            var name = $(this).parent().text();
+            if($(this).is(':checked')){
+            //hidden field
+            globalCal = $(this).next();
+            //$('.cartlist').append('<li><a>'+ $(this).parent().text()+'</a></li>').listview('refresh');
+            $('.cartlist').append(
+                $('<li/>', {
+                    'class': 'last_link',
+                    html: $('<a/>', {
+                    href: '#',
+                    target: '_blank',
+                    text:  name
+                    })
+                    })
+                );
+
+            $('#myModal').modal('toggle');
+            }
+            else{
+                $('.cartlist li').filter(function() { return $.text([this]) === name; }).remove();
+            }
+    });
+
+    //izbere kolicino
+    $(".numpad button").click(function(){
+            globalVar = $(this).text();
+            globalCal.val(globalVar);
+            });
+    //prikaze gumb za nazaj
+    $(".nazaj").click(function(){
+            $(this).parent().addClass("hidden");
+            $(".vrsteselect").removeClass("hidden");
+            });
+
+</script>
+}

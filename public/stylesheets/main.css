@@ -1,5 +1,18 @@
 body{
-    background: #666;
+    /*background: #666;*/
     padding-top: 60px;
     padding-bottom: 30px;
+}
+
+.cart {
+    position: fixed;
+    width: 140px;
+    overflow-y: auto;
+    top: 50px;
+    right: 10px;
+}
+
+.linemarg{
+    margin-top: 8px;
+    margin-bottom: 8px;
 }

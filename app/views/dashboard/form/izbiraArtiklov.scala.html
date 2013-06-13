@@ -4,20 +4,59 @@
 
 
 @dashboard.dashboard {
+
+<!-- Cart model --> 
+<div class="cart">
+    <h3>Artikli</h3>
+    <ul class="cartlist">
+    </ul>
+</div>
+<!-- Modal -->
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Kolicina</h3>
+    </div>
+    <div class="modal-body">
+         <div class="numpad">
+        @for( a <- 1 to 10){
+            <button type="button" class="btn btn-large btn-primary span1 linemarg" data-dismiss="modal">@a</button>
+        }
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Zapri</button>
+    </div>
+</div>
+
+
+
 <div class="well">
-    @helper.form(routes.Dashboard.addRacun2) {
+    @helper.form(routes.Dashboard.addRacun3) {
     <fieldset>
         <legend>Artikli</legend>
+        @for((key, value) <- art) {
+
+            @if(!value.isEmpty){
+            <div class="vrsteselect">
+            <button type="button" class="btn btn-primary @key span3 btn-large linemarg">@key</button>
+            </div>
+            }
+        }
 
         @for((key, value) <- art) {
 
             @if(!value.isEmpty){
+            <div class="hidden @key">
+            <button type="button" class="btn nazaj pull-right">Nazaj</button>
             <legend>@key</legend>
             @for(t <- value) {
-            <label class="checkbox btn btn-large @if(t.naziv.length > 7){span2}else{span1}">
-                <input type='checkbox' name='artikli[]' value=@t.artikli_id>@t.naziv 
+            <label class="checkbox btn btn-large span2 linemarg">
+                <input type='checkbox'  value=@t.artikli_id>@t.naziv 
+                <input type='hidden' name="@t.artikli_id" value="0"/>
                 </label>
             }
+            </div>
             }
         }
 
@@ -31,27 +70,53 @@
 
 
 <br/>
-        <button class="btn" type="submit">Dodaj</button>
+        <button class="btn btn-primary pull-right btn-large" type="submit">Dodaj</button>
     </fieldset>
     }
 </div>
 <script type="text/javascript" charset="utf-8">
-
-    $('.nasecene').on('click', '.addCena',  function(e) {
-            var cene = $(this).parents('.nasecene')
-            var template = $('.cene', cene)
-            template.before('<div class="clearfix phone">' + template.html() + '</div>')
-            renumber()
-            alert($('.nasecene').filter('cene').length)
-            })
-
-var renumber = function(phones) {
-    $('.cene').each(function(i) {
-            $('input', this).each(function() {
-                $(this).attr('name', $(this).attr('name').replace(/cene\[.+\].cena/g, 'cene[' + i + '].cena'))
-                $(this).attr('value', i);
-                })
-            })
-}
+    window.globalVar = 0;
+    window.globalCal;
+    //prikazemo artikle po vrstah
+    $(".vrsteselect button").click(function(){
+        var cls = $(this).attr("class").split(" ");
+        $(".vrsteselect").addClass("hidden");
+        var lol = $("." + cls[2] + ":not(.hidden)");
+        $("." + cls[2]).removeClass("hidden");
+    });
+    //izbira artiklov in kolicin
+    $('input:checkbox').change(function() {
+        //naziv artikla
+        var name = $(this).parent().text();
+        if($(this).is(':checked')){
+            //hidden field
+            globalCal = $(this).next();
+            $('.cartlist').append(
+                $('<li/>', {
+                    'class': 'last_link',
+                    html: $('<a/>', {
+                    href: '#',
+                    target: '_blank',
+                    text:  name
+                    })
+                    })
+                );
+            //prikazemo modalno okno
+            $('#myModal').modal('toggle');
+        }
+        else{
+            $('.cartlist li').filter(function() { return $.text([this]) === name; }).remove();
+        }
+    });
+    //izbere kolicino
+    $(".numpad button").click(function(){
+        globalVar = $(this).text();
+        globalCal.val(globalVar);
+    });
+    //prikaze gumb za nazaj
+    $(".nazaj").click(function(){
+        $(this).parent().addClass("hidden");
+        $(".vrsteselect").removeClass("hidden");
+    });
 </script>
 }

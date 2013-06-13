@@ -22,10 +22,11 @@ public class Artikli extends Model{
 
     @OneToMany(mappedBy="artikel")
     public List<Cene> cene;
-
+    
     public static Finder<Integer, Artikli> find = new
             Finder<Integer, Artikli>(Integer.class, Artikli.class);
 
+    //vrne hashmap [vrsta -> lista artiklov]
     public static Map<String,List<Artikli>> getMapByVrste(){
         Map<String, List<Artikli>> options = new HashMap();
         
@@ -34,13 +35,10 @@ public class Artikli extends Model{
         }
         return options;
     }
-    //public List<Artikli> getListByVrste(Vrste v){
-        //return find.where().eq("vrsta.vrste_id", v.vrste_id).findList();
-    //}
+
     public static List<Artikli> getListByVrste(int v){
         return find.where().eq("vrsta.vrste_id", v).findList();
     }
-
 
     public String toString() {
         return "Artikel: " + artikli_id + " " + proizvajalec + " "+ naziv + " "+ cena + " " + vrsta.vrsta;

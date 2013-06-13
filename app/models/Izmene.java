@@ -25,4 +25,9 @@ public class Izmene extends Model{
 
     public static Finder<Integer, Izmene> find = new
             Finder<Integer, Izmene>(Integer.class, Izmene.class);
+
+    public String toString(){
+        return "Izmena: " + izmene_id + " " + datum + " " + ura_prijave + " " 
+            + ura_odjave + " " + bar.naziv + " " + oseba.ime;
+    }
 }

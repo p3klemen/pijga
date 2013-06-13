@@ -6,6 +6,7 @@ import static play.data.Form.*;
 import play.mvc.*;
 
 import views.html.*;
+import views.html.guest.*;
 import views.html.dashboard.usermenu;
 import models.*;
 
@@ -36,8 +37,9 @@ public class Application extends Controller {
     //}
     public static String login() {
         String user = session("email");
+        String status = session("status");
         if(user != null) {
-            return usermenu.render(user).body();
+            return usermenu.render(user, status).body();
         } 
         return login.render(form(Login.class)).body();
     }
@@ -53,6 +55,8 @@ public class Application extends Controller {
             return badRequest(index.render());
         } else {
             session("email", loginForm.get().email);
+            Osebe o = Osebe.findByEmail(loginForm.get().email);
+            session("status", o.status);
             return redirect(
                 routes.Dashboard.index()
             );
@@ -86,6 +90,12 @@ public class Application extends Controller {
     }
     public static Result about() {
        return ok(about.render());
+    }
+    /**
+     * prikaze lokale
+     */
+    public static Result lokali() {
+       return ok(lokali.render(Bari.find.all()));
     }
     public static Result artikli() {
        return ok(artikli.render(Artikli.find.all()));

@@ -26,4 +26,9 @@ public class Porabe extends Model{
 
     public static Finder<Integer, Porabe> find = new
             Finder<Integer, Porabe>(Integer.class, Porabe.class);
+
+    public String toString(){
+        return "Poraba: " + porabe_id + " " + datum + " " + stevilo + " " + bar.naziv
+            + " " + artikel.naziv;
+    }
 }

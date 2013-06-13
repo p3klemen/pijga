@@ -22,4 +22,9 @@ public class Zaloge extends Model{
 
     public static Finder<Integer, Zaloge> find = new
             Finder<Integer, Zaloge>(Integer.class, Zaloge.class);
+
+    public String toString(){
+        return "Zaloga: " + zaloge_id + " "  + stevilo + " " + bar.naziv
+            + " " + artikel.naziv;
+    }
 }

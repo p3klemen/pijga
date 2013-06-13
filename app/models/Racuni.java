@@ -29,4 +29,9 @@ public class Racuni extends Model{
 
     public static Finder<Integer, Racuni> find = new
             Finder<Integer, Racuni>(Integer.class, Racuni.class);
+
+
+    public String toString(){
+        return "Racun: " + racuni_id + " " + datum + " " + ura + " " + znesek + " " + bar.naziv + " " + oseba.ime;
+    }
 }
